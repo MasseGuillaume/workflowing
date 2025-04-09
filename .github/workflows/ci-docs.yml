@@ -33,4 +33,4 @@ jobs:
       - name: Publish S3 tags/branch
         working-directory: api-docs/
         run: 'echo "generated-docs s3://narrative-cdn-docs/open-api/${{ github.ref_name }}"'
-        if: ${{(github.ref_type == 'branch' || github.ref_type == 'tag') && github.ref_name != 'main'}}
+        if: ${{github.ref_name != 'main'}}
