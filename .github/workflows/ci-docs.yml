@@ -4,7 +4,7 @@ on:
     branches:
       - "**"
     paths:
-      - "api-docs/"
+      - "api-docs/**"
   push:
     branches:
       - main
@@ -29,6 +29,18 @@ jobs:
       - name: Check And Build docs
         working-directory: api-docs/
         run: "./generate-docs.sh"
+
+      - name: debug github
+        run: "echo ${{ github }}"
+
+      - name: debug github.ref_name
+        run: "echo ${{ github.ref_name }}"
+
+      - name: debug github.head_ref
+        run: "echo ${{ github.head_ref }}"
+
+      - name: debug github.base_ref
+        run: "echo ${{ github.base_ref }}"
 
       - name: Publish S3 tags/branch
         working-directory: api-docs/
