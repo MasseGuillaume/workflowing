@@ -30,6 +30,18 @@ jobs:
         working-directory: api-docs/
         run: "./generate-docs.sh"
 
+      - name: debug github
+        run: "echo ${{ github }}"
+
+      - name: debug github.ref_name
+        run: "echo ${{ github.ref_name }}"
+
+      - name: debug github.head_ref
+        run: "echo ${{ github.head_ref }}"
+
+      - name: debug github.base_ref
+        run: "echo ${{ github.base_ref }}"
+
       - name: Publish S3 tags/branch
         working-directory: api-docs/
         run: 'echo "generated-docs s3://narrative-cdn-docs/open-api/${{ github.ref_name }}"'
