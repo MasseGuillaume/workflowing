@@ -6,8 +6,6 @@ on:
     paths:
       - "api-docs/**"
   push:
-    branches:
-      - main
     tags:
       - "v*"
   workflow_dispatch:
