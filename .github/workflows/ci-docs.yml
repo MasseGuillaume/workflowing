@@ -55,7 +55,6 @@ jobs:
         with:
           script: |
             const refTags = "refs/tags/"
-            assert(context.ref.startsWith(refTags))
             const tag = context.ref.substring(refTags)
             core.setOutput('value', tag)
         if: ${{github.ref_type == 'tag'}}
