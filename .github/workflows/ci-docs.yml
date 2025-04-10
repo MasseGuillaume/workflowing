@@ -26,6 +26,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: sleep
+        run: sleep 30
+
       - name: Check And Build docs
         working-directory: api-docs/
         run: "./generate-docs.sh"
