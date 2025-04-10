@@ -30,11 +30,13 @@ jobs:
         working-directory: api-docs/
         run: "./generate-docs.sh"
 
+      # https://docs.narrative.io/open-api/my-feature
       - name: Publish to S3 based on the branch
         working-directory: api-docs/
-        run: 'echo "generated-docs s3://narrative-cdn-docs/open-api/${{ github.base_ref || github.ref_name }}"'
+        run: 'echo "generated-docs s3://narrative-cdn-docs/open-api/${{ github.head_ref || github.ref_name }}"'
         if: ${{github.ref_type == 'branch' && github.ref_name != 'main'}}
 
+      # clean up the tag name
       - name: Set Versions
         uses: actions/github-script@v4
         id: set_version
@@ -44,21 +46,11 @@ jobs:
             const no_v = tag.replace('v', '')
             const dash_index = no_v.lastIndexOf('-')
             const no_dash = (dash_index > -1) ?  no_v.substring(0, dash_index) : no_v
-            core.setOutput('tag', tag)
-            core.setOutput('no-v', no_v)
-            core.setOutput('no-dash', no_dash)
+            core.setOutput('value', no_dash)
         if: ${{github.ref_type == 'tag'}}
 
-      - name: debug tag
-        run: "echo ${{steps.set_version.outputs.tag}}"
-
-      - name: debug no-v
-        run: "echo ${{steps.set_version.outputs.no-v}}"
-
-      - name: debug no-dash
-        run: "echo ${{steps.set_version.outputs.no-dash}}"
-
+      # https://docs.narrative.io/open-api/1.2.3
       - name: Publish to S3 based on the tag
         working-directory: api-docs/
-        run: 'echo "generated-docs s3://narrative-cdn-docs/open-api/${{ github.ref_name }}"'
+        run: 'echo "generated-docs s3://narrative-cdn-docs/open-api/${{ steps.set_version.outputs.value }}"'
         if: ${{github.ref_type == 'tag'}}
