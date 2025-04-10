@@ -12,10 +12,6 @@ on:
       - "v*"
   workflow_dispatch:
 
-env:
-  AWS_REGION: us-east-1
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 jobs:
   build:
     name: Build and publish
@@ -27,7 +23,7 @@ jobs:
           fetch-depth: 0
 
       - name: sleep
-        run: sleep 30
+        run: sleep 10
 
       - name: Check And Build docs
         working-directory: api-docs/
