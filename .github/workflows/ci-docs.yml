@@ -20,9 +20,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: sleep
-        run: sleep 10
-
       - name: Check And Build docs
         working-directory: api-docs/
         run: "./generate-docs.sh"
@@ -32,8 +29,8 @@ jobs:
         id: set_branch
         with:
           script: |
-            const branch = context.github.head_ref | context.github.ref_name
-            const cleanBranch = cleanBranch.replaceAll("/", "-")
+            const branch = '${{github.head_ref}}'
+            const cleanBranch = branch.replaceAll("/", "-")
             core.setOutput('value', cleanBranch)
         if: ${{github.ref_type == 'branch' && github.ref_name != 'main'}}
 
