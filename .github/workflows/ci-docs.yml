@@ -32,7 +32,7 @@ jobs:
         id: set_branch
         with:
           script: |
-            const branch = context.github.head_ref | context.github.ref_name
+            const branch = context.ref
             const cleanBranch = cleanBranch.replaceAll("/", "-")
             core.setOutput('value', cleanBranch)
         if: ${{github.ref_type == 'branch' && github.ref_name != 'main'}}
