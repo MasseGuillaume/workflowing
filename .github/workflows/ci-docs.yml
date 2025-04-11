@@ -29,13 +29,7 @@ jobs:
         id: set_branch
         with:
           script: |
-            const ref_name = '${{github.ref_name}}'
-            const head_ref = '${{github.head_ref}}'
-
-            console.log(ref_name);
-            console.log(head_ref);
-
-            const branch = "bar"
+            const branch = '${{github.head_ref}}'
             const cleanBranch = branch.replaceAll("/", "-")
             core.setOutput('value', cleanBranch)
         if: ${{github.ref_type == 'branch' && github.ref_name != 'main'}}
